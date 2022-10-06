@@ -2,7 +2,6 @@ import React from 'react'
 import Card,{CardItem} from '../common/card'
 import Colum from '../common/column'
 
-
 const brandItems = [{
     ui: {
         title: 'UI/UX',
