@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import {Link} from 'react-router-dom'
 
 const menu = [
     {
@@ -31,8 +32,8 @@ const menu = [
 const getMenu = () => {
     return menu.map(items => (
         (Object.values(items).map(item => {
-            return <li key={item.label} className="nav-item d-none d-sm-inline-block">
-                <NavLink exact to={item.link} className="nav-link thicker">
+            return <li key={item.label} className="navbar-expand-lg">
+                <NavLink exact to={item.link} className="nav-link thicker" style={{marginLeft:'30px',marginRight:'30px'}}>
                     {item.label}
                 </NavLink>
             </li>
@@ -42,13 +43,13 @@ const getMenu = () => {
 class MainNavBar extends Component {
     render() {
         return (
-            <nav className="navbar navbar-expand bg-white navbar-light border-bottom">
+            <nav className="navbar navbar-expand bg-secondary navbar-light border-bottom">
                 <div className="brand-link">
                     <img
                         src='static/img/Alpha-designstyle-smoothie-m.png'
-                        alt="Klenty Logo"
+                        alt="custom logo"
                         height="50"
-                        weight='100px'
+                        weight='00px'
                         
                     />
                 </div>
@@ -57,11 +58,11 @@ class MainNavBar extends Component {
                 </ul>
                 <ul className="navbar-nav ml-auto">
                     <div className='nav-item'>
-                        <button type="button" className="btn btn-outline-dark">
+                        <Link className="btn btn-outline-info" to='/contact'>
                             CONTACT US
-                        </button>
+                        </Link>
                         {'  '}
-                        <button type="button" className="btn btn-primary">
+                        <button type="button" className="btn text-white btn-pink">
                             TRY FOR FREE
                         </button>
                     </div>
