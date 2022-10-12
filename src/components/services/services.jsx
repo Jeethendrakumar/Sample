@@ -3,23 +3,34 @@ import fetchApi from '../../actions/index'
 import {connect} from 'react-redux'
 import Column from '../../common/column'
 import Card, {CardItem} from '../../common/card'
+import Loader from '../../common/loader'
 
 class Services extends React.Component{
     componentDidMount(){
         this.props.fetchApi()
     }
     render(){
-        return <CardItem item='body'>
-            <div className='row'>
-            {this.props.posts.map(items => {
-                return <Column span={2} key={items.it}>
+        let {fetched} = this.props.posts
+        let content
+        if(fetched)
+        {   
+            let {payload} = this.props.posts
+            content = payload.map(items => {
+                return <Column span={3} key={items.id}>
                     <Card>
-                        <CardItem item={'body'}>
-                        {items.email}
+                        <CardItem item='body'>
+                            {items.name}
                         </CardItem>
                     </Card>
-                    </Column>
-            })}
+                </Column>
+            })
+        }
+        else{
+            content = <Loader />
+        }
+        return <CardItem item='body'>
+            <div className='row'>
+                {content}
             </div>
         </CardItem>
     }
