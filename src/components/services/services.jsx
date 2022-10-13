@@ -7,6 +7,7 @@ import Loader from '../../common/loader'
 
 class Services extends React.Component{
     componentDidMount(){
+        
         this.props.fetchApi()
     }
     render(){
