@@ -10,6 +10,9 @@ const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 
 const store = createStore(reducers,applyMiddleware(thunk))
+const unsubscribe = store.subscribe(() =>
+  console.log(store.getState())
+)
 
 root.render(
   <StrictMode>

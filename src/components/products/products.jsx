@@ -25,7 +25,7 @@ const products = [{
     pen : {
         title: 'PEN',
         label: faPen,
-        desc : 'Model: HP\tPrice: $500 Color: Black'
+        desc : 'Model: HP Price: $500 Color: Black'
     } ,
     headphones : {
         title: 'HEADPHONES',
