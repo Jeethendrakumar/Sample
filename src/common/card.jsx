@@ -7,6 +7,10 @@ export const CardItem = ({ children, item }) => (
   <div className={`card-${item}`}>{children}</div>
 )
 
+export const CardLit = ({children}) => (
+  <div className='card bg-light'>{children}</div>
+)
+
 export const CardProfile = ({ cardtext, institution_image, author, author_name, designation }) => {
   return <div className="card mb-3" style={{ maxWidth: '640px' }}>
     <div className="row g-0">
@@ -41,6 +45,10 @@ export const CardProfile = ({ cardtext, institution_image, author, author_name, 
 }
 
 Card.propTypes = {
+  children: PropTypes.any
+}
+
+CardLit.prototype = {
   children: PropTypes.any
 }
 

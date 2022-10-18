@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDesktop, faMobile, faStopwatch, faPen, faHeadphones, faVolumeHigh } from '@fortawesome/free-solid-svg-icons'
 import Card, {CardItem} from '../../common/card'
 import Column from '../../common/column'
-import fetchApi from '../../actions/index'
 import {connect} from 'react-redux'
 
 const products = [{
@@ -40,9 +39,6 @@ const products = [{
 }]
 
 class Products extends React.Component{
-    componentDidMount(){
-        this.props.fetchApi();
-    }
     render(){
         return <CardItem item={'body'}>
         <div className='d-flex justify-content-center'>
@@ -71,7 +67,5 @@ class Products extends React.Component{
         </CardItem>
     }
 }
-const mapStateToProps =(state) => {
-     return  {posts : state.posts}
-}
-export default connect(mapStateToProps, {fetchApi}) (Products);
+
+export default connect(null, {}) (Products);

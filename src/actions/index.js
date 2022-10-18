@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const fetchApi = () => {
+export const fetchApi = () => {
   return async (dispatch) => {
     dispatch({type:'PATCH_API',payload : {requested: true}})
     try{
@@ -15,4 +15,8 @@ const fetchApi = () => {
 }
 }
 
-export default fetchApi
+export const changePage = (current_page) => {
+  return {type : 'PATCH_API', payload : {current_page}}
+}
+
+

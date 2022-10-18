@@ -1,39 +1,27 @@
 import React from 'react'
-import fetchApi from '../../actions/index'
+import { fetchApi , changePage } from '../../actions/index'
 import {connect} from 'react-redux'
-import Column from '../../common/column'
-import Card, {CardItem} from '../../common/card'
+import PropTypes from 'prop-types';
+import {CardItem} from '../../common/card'
 import Loader from '../../common/loader'
+import ServiceGrid from '../services/serviceGrid'
 
 class Services extends React.Component{
     componentDidMount(){
-        
         this.props.fetchApi()
     }
     render(){
-        let {fetched} = this.props.posts
+        let {posts} = this.props
+        let {fetched} = posts
         let content
         if(fetched)
         {   
-            let {payload} = this.props.posts
-            content = payload.map(items => {
-                return <Column span={3} key={items.id}>
-                    <Card>
-                        <CardItem item='body'>
-                            {items.name}
-                        </CardItem>
-                    </Card>
-                </Column>
-            })
+            content = <ServiceGrid />
         }
         else{
             content = <Loader />
         }
-        return <CardItem item='body'>
-            <div className='row'>
-                {content}
-            </div>
-        </CardItem>
+        return <> {content} </>
     }
 }
 
@@ -41,4 +29,10 @@ const mapStateToProps =(state) => {
      return {posts : state.posts}
 }
 
-export default connect(mapStateToProps, {fetchApi}) (Services)
+Services.propTypes ={
+    posts: PropTypes.object,
+    changePage: PropTypes.func
+}
+
+
+export default connect(mapStateToProps, {fetchApi, changePage}) (Services)
