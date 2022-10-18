@@ -9,7 +9,7 @@ import MainNavBar from './components/mainNav'
 import Product from './components/products/products'
 import Footer from './components/footer'
 import Service from './components/services/services'
-
+import About from './components/about/about'
 
 class App extends React.Component{
     render(){
@@ -20,6 +20,7 @@ class App extends React.Component{
                         <Route exact path='/' element={<Home />} />
                         <Route exact path='/products' element={<Product />} />
                         <Route exact path='/services' element={<Service />}/>
+                        <Route exact path='/about' element={<About />} />
                     </Routes>
                 <Footer />
             </BrowserRouter>
