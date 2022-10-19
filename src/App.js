@@ -10,6 +10,9 @@ import Product from './components/products/products'
 import Footer from './components/footer'
 import Service from './components/services/services'
 import About from './components/about/about'
+import Login from './components/login/login'
+import Contact from './components/contactUs/contact'
+import Status from './components/contactUs/status/status'
 
 class App extends React.Component{
     render(){
@@ -21,6 +24,11 @@ class App extends React.Component{
                         <Route exact path='/products' element={<Product />} />
                         <Route exact path='/services' element={<Service />}/>
                         <Route exact path='/about' element={<About />} />
+                        <Route exact path='/login' element={<Login />} />
+                        <Route path='/contact/' element={<Contact />}> 
+                            <Route path='support' element={<Status/>}/>
+                            <Route path='configure' element={<Status/>}/>
+                        </Route>
                     </Routes>
                 <Footer />
             </BrowserRouter>
