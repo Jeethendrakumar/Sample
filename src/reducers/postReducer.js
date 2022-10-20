@@ -14,6 +14,8 @@ export default (state = initialState , { type, payload }) => {
             return {...state, ...payload, requested: false  }
         case 'FETCH_API':
             return {...state, result : payload, fetched: true, requested: false }
+        case 'POST_API':
+            return {...state, result : payload, fetched: true, requested: false }
         default:
             return state
     }
