@@ -1,80 +1,116 @@
 import React from "react";
-import Card, { CardItem, CardLit } from "../../../common/card";
+import { CardItem, CardLit } from "../../../common/card";
 import Column from "../../../common/column";
-import Dropdownlist from '../../../common/dropDown'
+import Dropdownlist from "../../../common/dropDown";
+import Input from "../../../common/input";
+import { postApi } from '../../../actions/postApi'
+import {connect} from 'react-redux'
+import PropTypes from 'prop-types';
 
 class Status extends React.Component {
-    constructor(props)
-    {
-        super(props);
-        this.state = {
-            selectedValue : ''
-        }
-    }
-    handleSelect = (e) => {
-        e.preventDefault()
-        this.setState({selectedValue : e.target.value})
-    }
-    
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedValue: "",
+      selectedSubmenuValue: "",
+    };
+  }
+  handleSelect = (e) => {
+    e.preventDefault();
+    this.setState({ selectedValue: e.target.value });
+  };
+  handleSubSelect = (e) => {
+    e.preventDefault();
+    this.setState({ selectedSubmenuValue: e.target.value });
+  };
+  handleSubmit = (e) => {
+    e.preventDefault();
+  };
   render() {
     const dropdownList = [
-        'IT' , 'Dongle', 'Telephone', 'Internet'
-    ]
+      "Select an option...",
+      "IT",
+      "Dongle",
+      "Telephone",
+      "Internet",
+    ];
+    const IT = ["Select an option...", "Laptop", "Battery", "Charger"];
+    const Dongle = ["Select an option...", "Datacard", "Dongle issue"];
+    const Telephone = ["Select an option...", "Headphone"];
+    const Internet = ["Select an option...", "Access", "Wifi"];
+    let type;
+    switch (this.state.selectedValue) {
+      case "IT": {
+        type = IT;
+        break;
+      }
+      case "Dongle": {
+        type = Dongle;
+        break;
+      }
+      case "Internet": {
+        type = Internet;
+        break;
+      }
+      case "Telephone": {
+        type = Telephone;
+        break;
+      }
+      default:
+        type = [];
+    }
+    if (this.state.selectedSubmenuValue == "Select an option...") {
+      type = [];
+    }
+    console.log("state : ", this.state.selectedValue);
+    console.log("subState : ", this.state.selectedSubmenuValue);
     return (
       <>
         <CardItem item="body">
           <div className="row">
             <Column span={6}>
               <CardLit>
-                <form className="form-horizontal">
+                <form
+                  className="form-horizontal"
+                  onSubmit={(e) => this.handleSubmit(e)}
+                >
                   <CardItem item={"header"}>
                     <CardItem item={"text"}>Form</CardItem>
                   </CardItem>
                   <CardItem item={"body"}>
-                    <CardItem item={"text"}>Start Duration:</CardItem>
-                    <br></br>
                     <div className="form-group">
-                      <label className="col-sm-3" htmlFor="startdate">
-                        Date:
-                      </label>
-                      <input
-                        className="form-control col-sm-12"
-                        type="date"
-                        id="startdate"
-                        name="startdate"
-                        required
+                      <Dropdownlist
+                        name={"dropdown"}
+                        children={"Issue Type"}
+                        dropdown={dropdownList}
+                        handleSelect={(e) => this.handleSelect(e)}
                       />
-                      <br />
-                      <Dropdownlist dropdown={dropdownList} />
-                      {/* <select onChange={(e) => this.handleSelect(e)} className="form-control col-sm-12" name="cars" id="cars"> */}
-                        {/* <option value={'volvo'}>Volvo</option> */}
-                        {/* {dropdownList.map(items => {
-                            return <option value={items} key={items}>{items}</option>
-                        })}
-                      </select> */}
                     </div>
                     <div className="form-group">
-                      <label className="col-sm-3" htmlFor="starttime">
-                        Time:
-                      </label>
-                      <input
-                        className="form-control col-sm-12"
-                        type="time"
-                        id="starttime"
-                        step={1}
-                        required
+                      <Dropdownlist
+                        name={"subdropdown"}
+                        children={"Sub Type"}
+                        dropdown={type}
+                        handleSelect={(e) => this.handleSubSelect(e)}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <Input
+                        children={"Time"}
+                        type={"datetime-local"}
+                        name={"startdate"}
+                        id={"startdate"}
                       />
                     </div>
                   </CardItem>
                   <CardItem item={"footer"}>
                     <button
-                      className="btn btn-secondary col-sm-3
-                                            "
+                      className="btn btn-secondary col-sm-3                    "
                       type="reset"
                     >
                       Reset
                     </button>
-                    <button className="btn btn-info col-sm-3 offset-sm-6">
+                    <button className="btn btn-info col-sm-3 offset-sm-6" onClick={() => this.props.postApi({name:this.state.selectedValue, job: this.state.selectedSubmenuValue})}>
                       Generate
                     </button>
                   </CardItem>
@@ -98,4 +134,13 @@ class Status extends React.Component {
   }
 }
 
-export default Status;
+const mapStateToProps =(state) => {
+     return {posts : state.posts}
+}
+
+Status.propTypes ={
+}
+
+
+export default connect(mapStateToProps, {postApi}) (Status)
+

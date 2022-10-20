@@ -1,16 +1,15 @@
-import React, {useState} from 'react'
+import React from 'react'
 
-const Dropdownlist = ({dropdown}) => {
-    const [selectedValue, setValue] = useState('')
-    const handleSelect = (e) => {
-        setValue(e.target.value)
-    }
-    console.log(selectedValue)
-    return <select onChange={(e) => handleSelect(e)} className="form-control col-sm-12" name="cars" id="cars"> 
+const Dropdownlist = ({dropdown, handleSelect, name, children}) => {
+    return <>
+    <label className="col-sm-3" htmlFor={name}>
+        {children}
+    </label>
+    <select onChange={handleSelect} className="form-control col-sm-12" name="cars" id="cars"> 
     {dropdown.map(items => {
         return <option value={items} key={items}>{items}</option>
     })}
-    </select>
+    </select></>
 }
 
 export default Dropdownlist
