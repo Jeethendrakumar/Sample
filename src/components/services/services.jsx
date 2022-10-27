@@ -11,8 +11,8 @@ class Services extends React.Component{
         this.props.fetchApi()
     }
     render(){
-        let {posts} = this.props
-        let {fetched} = posts
+        let {services} = this.props
+        let {fetched} = services
         let content
         if(fetched)
         {   
@@ -26,11 +26,11 @@ class Services extends React.Component{
 }
 
 const mapStateToProps =(state) => {
-     return {posts : state.posts}
+     return {services : state.services}
 }
 
 Services.propTypes ={
-    posts: PropTypes.object,
+    services: PropTypes.object,
     changePage: PropTypes.func
 }
 

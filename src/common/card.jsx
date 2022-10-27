@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Card = ({ children }) => <div className="card">{children}</div>
+const Card = ({ children, background }) => <div className={`card ${background}`}>{children}</div>
 
 export const CardItem = ({ children, item }) => (
   <div className={`card-${item}`}>{children}</div>
