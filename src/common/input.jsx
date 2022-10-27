@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = ({ children, type, name, id }) => {
+const Input = ({ children, type, name, id, readonly, value, disabled }) => {
   return (
     <>
       <label className="col-sm-3" htmlFor={name}>
@@ -12,6 +12,9 @@ const Input = ({ children, type, name, id }) => {
         id={id}
         name={name}
         required
+        value={value}
+        readOnly={readonly}
+        disabled={disabled}
       />
     </>
   );

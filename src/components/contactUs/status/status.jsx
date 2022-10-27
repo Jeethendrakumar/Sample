@@ -1,11 +1,14 @@
 import React from "react";
-import { CardItem, CardLit } from "../../../common/card";
+import Card, { CardItem, CardLit } from "../../../common/card";
 import Column from "../../../common/column";
 import Dropdownlist from "../../../common/dropDown";
 import Input from "../../../common/input";
-import { postApi } from '../../../actions/postApi'
-import {connect} from 'react-redux'
-import PropTypes from 'prop-types';
+import { postForm } from "../../../actions/postForm";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import Loader from "../../../common/loader";
+import PrintButton from "../../../common/printButton";
+import ReactSpeedometer from "react-d3-speedometer";
 
 class Status extends React.Component {
   constructor(props) {
@@ -13,6 +16,7 @@ class Status extends React.Component {
     this.state = {
       selectedValue: "",
       selectedSubmenuValue: "",
+      desc: "",
     };
   }
   handleSelect = (e) => {
@@ -22,6 +26,10 @@ class Status extends React.Component {
   handleSubSelect = (e) => {
     e.preventDefault();
     this.setState({ selectedSubmenuValue: e.target.value });
+  };
+  handleDescription = (e) => {
+    e.preventDefault();
+    this.setState({ desc: e.target.value });
   };
   handleSubmit = (e) => {
     e.preventDefault();
@@ -59,8 +67,47 @@ class Status extends React.Component {
       default:
         type = [];
     }
-    if (this.state.selectedSubmenuValue == "Select an option...") {
-      type = [];
+
+    let { posts } = this.props;
+    let { fetched, requested } = posts;
+    let resultContent, priority;
+    priority =
+      this.state.selectedValue == "IT"
+        ? "high"
+        : this.state.selectedValue == "Internet"
+        ? "Medium"
+        : "Low";
+    if (requested) {
+      resultContent = <Loader />;
+    } else if (fetched) {
+      let bg =
+        posts.result.category == "IT"
+          ? "bg-danger"
+          : posts.result.category == "Internet"
+          ? "bg-warning"
+          : "bg-secondary";
+      resultContent = (
+        <>
+          <Card background={bg}>
+            <CardItem item="header">
+              Priority : <strong>{priority}</strong>
+            </CardItem>
+            <CardItem item="body">
+              Category : {posts.result.category}
+              <br />
+              Subcategory : {posts.result.subcategory}
+              <br />
+            </CardItem>
+            <CardItem item="footer">
+              Description :
+              <br />
+              {posts.result.descrpiton}
+            </CardItem>
+          </Card>
+        </>
+      );
+    } else {
+      resultContent = "";
     }
     console.log("state : ", this.state.selectedValue);
     console.log("subState : ", this.state.selectedSubmenuValue);
@@ -95,11 +142,25 @@ class Status extends React.Component {
                       />
                     </div>
                     <div className="form-group">
+                      <label className="col-sm-3" htmlFor={"desc"}>
+                        Description
+                      </label>
+                      <textarea
+                        className="form-control col-sm-12"
+                        cols={70}
+                        rows={2}
+                        onChange={(e) => this.handleDescription(e)}
+                      ></textarea>
+                    </div>
+                    <div className="form-group">
                       <Input
-                        children={"Time"}
-                        type={"datetime-local"}
-                        name={"startdate"}
-                        id={"startdate"}
+                        children={"Priority"}
+                        type={"text"}
+                        name={"priority"}
+                        id={"priority"}
+                        value={priority}
+                        readonly={true}
+                        disabled={true}
                       />
                     </div>
                   </CardItem>
@@ -110,8 +171,17 @@ class Status extends React.Component {
                     >
                       Reset
                     </button>
-                    <button className="btn btn-info col-sm-3 offset-sm-6" onClick={() => this.props.postApi({name:this.state.selectedValue, job: this.state.selectedSubmenuValue})}>
-                      Generate
+                    <button
+                      className="btn btn-info col-sm-3 offset-sm-6"
+                      onClick={() =>
+                        this.props.postForm({
+                          category: this.state.selectedValue,
+                          subcategory: this.state.selectedSubmenuValue,
+                          descrpiton: this.state.desc,
+                        })
+                      }
+                    >
+                      Create
                     </button>
                   </CardItem>
                 </form>
@@ -123,7 +193,13 @@ class Status extends React.Component {
                   <CardItem item={"text"}>Result</CardItem>
                 </CardItem>
                 <CardItem item={"body"}>
-                  <div>{/* {content} */}</div>
+                  <div>{resultContent}</div>
+                </CardItem>
+                <CardItem item="footer">
+                  <PrintButton
+                    refsToPrint={posts.result}
+                    disabled={fetched}
+                  ></PrintButton>
                 </CardItem>
               </CardLit>
             </Column>
@@ -134,13 +210,13 @@ class Status extends React.Component {
   }
 }
 
-const mapStateToProps =(state) => {
-     return {posts : state.posts}
-}
+const mapStateToProps = (state) => {
+  return { posts: state.posts };
+};
 
-Status.propTypes ={
-}
+Status.propTypes = {
+  postForm: PropTypes.func,
+  posts: PropTypes.object,
+};
 
-
-export default connect(mapStateToProps, {postApi}) (Status)
-
+export default connect(mapStateToProps, { postForm })(Status);
