@@ -44,7 +44,7 @@ function PrintButton({ refsToPrint, disabled }) {
   };
 
   return (
-    <button className="btn btn-info offset-sm-9" disabled={disabled ? false : true} onClick={printFunction}>
+    <button className="btn btn-info col-sm-4 offset-sm-8" disabled={disabled ? false : true} onClick={printFunction}>
       {" "}
       Print Ticket
     </button>
