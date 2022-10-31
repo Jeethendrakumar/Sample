@@ -8,7 +8,6 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Loader from "../../../common/loader";
 import PrintButton from "../../../common/printButton";
-import ReactSpeedometer from "react-d3-speedometer";
 
 class Status extends React.Component {
   constructor(props) {
@@ -113,98 +112,96 @@ class Status extends React.Component {
     console.log("subState : ", this.state.selectedSubmenuValue);
     return (
       <>
-        <CardItem item="body">
-          <div className="row">
-            <Column span={6}>
-              <CardLit>
-                <form
-                  className="form-horizontal"
-                  onSubmit={(e) => this.handleSubmit(e)}
-                >
-                  <CardItem item={"header"}>
-                    <CardItem item={"text"}>Form</CardItem>
-                  </CardItem>
-                  <CardItem item={"body"}>
-                    <div className="form-group">
-                      <Dropdownlist
-                        name={"dropdown"}
-                        children={"Issue Type"}
-                        dropdown={dropdownList}
-                        handleSelect={(e) => this.handleSelect(e)}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <Dropdownlist
-                        name={"subdropdown"}
-                        children={"Sub Type"}
-                        dropdown={type}
-                        handleSelect={(e) => this.handleSubSelect(e)}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label className="col-sm-3" htmlFor={"desc"}>
-                        Description
-                      </label>
-                      <textarea
-                        className="form-control col-sm-12"
-                        cols={70}
-                        rows={2}
-                        onChange={(e) => this.handleDescription(e)}
-                      ></textarea>
-                    </div>
-                    <div className="form-group">
-                      <Input
-                        children={"Priority"}
-                        type={"text"}
-                        name={"priority"}
-                        id={"priority"}
-                        value={priority}
-                        readonly={true}
-                        disabled={true}
-                      />
-                    </div>
-                  </CardItem>
-                  <CardItem item={"footer"}>
-                    <button
-                      className="btn btn-secondary col-sm-3                    "
-                      type="reset"
-                    >
-                      Reset
-                    </button>
-                    <button
-                      className="btn btn-info col-sm-3 offset-sm-6"
-                      onClick={() =>
-                        this.props.postForm({
-                          category: this.state.selectedValue,
-                          subcategory: this.state.selectedSubmenuValue,
-                          descrpiton: this.state.desc,
-                        })
-                      }
-                    >
-                      Create
-                    </button>
-                  </CardItem>
-                </form>
-              </CardLit>
-            </Column>
-            <Column span={6}>
-              <CardLit>
+        <div className="row">
+          <Column span={6}>
+            <CardLit>
+              <form
+                className="form-horizontal"
+                onSubmit={(e) => this.handleSubmit(e)}
+              >
                 <CardItem item={"header"}>
-                  <CardItem item={"text"}>Result</CardItem>
+                  <CardItem item={"text"}>Form</CardItem>
                 </CardItem>
                 <CardItem item={"body"}>
-                  <div>{resultContent}</div>
+                  <div className="form-group">
+                    <Dropdownlist
+                      name={"dropdown"}
+                      children={"Issue Type"}
+                      dropdown={dropdownList}
+                      handleSelect={(e) => this.handleSelect(e)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <Dropdownlist
+                      name={"subdropdown"}
+                      children={"Sub Type"}
+                      dropdown={type}
+                      handleSelect={(e) => this.handleSubSelect(e)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label className="col-sm-3" htmlFor={"desc"}>
+                      Description
+                    </label>
+                    <textarea
+                      className="form-control col-sm-12"
+                      cols={70}
+                      rows={2}
+                      onChange={(e) => this.handleDescription(e)}
+                    ></textarea>
+                  </div>
+                  <div className="form-group">
+                    <Input
+                      children={"Priority"}
+                      type={"text"}
+                      name={"priority"}
+                      id={"priority"}
+                      value={priority}
+                      readonly={true}
+                      disabled={true}
+                    />
+                  </div>
                 </CardItem>
-                <CardItem item="footer">
-                  <PrintButton
-                    refsToPrint={posts.result}
-                    disabled={fetched}
-                  ></PrintButton>
+                <CardItem item={"footer"}>
+                  <button
+                    className="btn btn-secondary col-sm-3                    "
+                    type="reset"
+                  >
+                    Reset
+                  </button>
+                  <button
+                    className="btn btn-info col-sm-3 offset-sm-6"
+                    onClick={() =>
+                      this.props.postForm({
+                        category: this.state.selectedValue,
+                        subcategory: this.state.selectedSubmenuValue,
+                        descrpiton: this.state.desc,
+                      })
+                    }
+                  >
+                    Create
+                  </button>
                 </CardItem>
-              </CardLit>
-            </Column>
-          </div>
-        </CardItem>
+              </form>
+            </CardLit>
+          </Column>
+          <Column span={6}>
+            <CardLit>
+              <CardItem item={"header"}>
+                <CardItem item={"text"}>Tickets</CardItem>
+              </CardItem>
+              <CardItem item={"body"}>
+                <div>{resultContent}</div>
+              </CardItem>
+              <CardItem item="footer">
+                <PrintButton
+                  refsToPrint={posts.result}
+                  disabled={fetched}
+                ></PrintButton>
+              </CardItem>
+            </CardLit>
+          </Column>
+        </div>
       </>
     );
   }

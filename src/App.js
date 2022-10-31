@@ -13,7 +13,8 @@ import About from './components/about/about'
 import Login from './components/login/login'
 import Contact from './components/contactUs/contact'
 import Status from './components/contactUs/status/status'
-import SpeedCheck from './components/contactUs/troubleshoot/speedCheck'
+import SpeedCheck from './components/contactUs/speedCheck/speedCheck'
+import TroubleShoot from './components/contactUs/troubleshoot/troubleshoot'
 
 class App extends React.Component{
     render(){
@@ -28,7 +29,8 @@ class App extends React.Component{
                         <Route exact path='/login' element={<Login />} />
                         <Route path='/contact/' element={<Contact />}> 
                             <Route path='support' element={<Status/>}/>
-                            <Route path='configure' element={<SpeedCheck/>}/>
+                            <Route path='speedtest' element={<SpeedCheck/>}/>
+                            <Route path='troubleshoot' element={<TroubleShoot/>} />
                         </Route>
                     </Routes>
                 <Footer />

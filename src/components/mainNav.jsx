@@ -33,7 +33,7 @@ const getMenu = () => {
     return menu.map(items => (
         (Object.values(items).map(item => {
             return <li key={item.label} className="navbar-expand-lg">
-                <NavLink exact to={item.link} className="nav-link thicker" style={{marginLeft:'30px',marginRight:'30px'}}>
+                <NavLink to={item.link} className="nav-link thicker" style={{marginLeft:'30px',marginRight:'30px'}}>
                     {item.label}
                 </NavLink>
             </li>

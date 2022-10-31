@@ -40,8 +40,8 @@ export const overviewmenu = [
     link: '/contact/support'
   },
   configure: {
-    label: 'Configure',
-    link: '/contact/configure'
+    label: 'Speed Test',
+    link: '/contact/speedtest'
   },
   toubleshoot: {
     label: 'Troubleshoot',
