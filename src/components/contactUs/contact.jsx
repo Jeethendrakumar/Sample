@@ -18,7 +18,7 @@ class Contact extends Component {
                 location.pathname.includes(link)
                   ? "text-dark thicker"
                   : "text-muted"
-              } px-5 mx-2"`}
+              } x-5 mx-2"`}
             >
               {label}
             </NavLink>

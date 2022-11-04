@@ -1,6 +1,16 @@
 import React from "react";
 
-const Input = ({ children, type, name, id, readonly, value, disabled }) => {
+const Input = ({
+  pattern,
+  children,
+  type,
+  name,
+  id,
+  readonly,
+  value,
+  disabled,
+  title
+}) => {
   return (
     <>
       <label className="col-sm-3" htmlFor={name}>
@@ -15,9 +25,12 @@ const Input = ({ children, type, name, id, readonly, value, disabled }) => {
         value={value}
         readOnly={readonly}
         disabled={disabled}
+        placeholder={name}
+        pattern={pattern}
+        title={title}
       />
     </>
   );
 };
 
-export default Input
+export default Input;

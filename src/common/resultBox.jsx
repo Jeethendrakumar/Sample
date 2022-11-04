@@ -11,8 +11,7 @@ const ResultBox = ({ label, children }) => {
           </CardItem>
           <CardItem item="body">
             <div className="form-group">
-              <textarea className="form-control col-sm-12" cols={100} rows={4}>
-                {children}
+              <textarea className="form-control col-sm-12" cols={100} rows={4} defaultValue={children}>
               </textarea>
             </div>
           </CardItem>
