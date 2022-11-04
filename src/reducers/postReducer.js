@@ -7,7 +7,6 @@ const initialState = {
   limit: 100,
   page: 1,
 };
-
 export default (state = initialState, { type, payload }) => {
   switch (type) {
     case "PATCH_FORM":
