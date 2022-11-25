@@ -1,4 +1,5 @@
 import React from "react";
+import { map } from "lodash";
 
 function PrintButton({ refsToPrint, disabled }) {
   const deepCloneWithStyles = (node) => {
@@ -15,36 +16,28 @@ function PrintButton({ refsToPrint, disabled }) {
   const printFunction = () => {
     const printWindow = window.open("", "", "height=400,width=800");
     printWindow.document.write(
-      "<html><head><title>User Ticket</title></head><body id='print-body'>"
+      "<html><head><style>table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}td, th {border: 1px solid #dddddd;text-align: left;padding: 8px;}</style><title>User Ticket</title></head><body id='print-body'><h1>Ticket Details</h1><table>"
     );
+
     const body = printWindow.document.getElementById("print-body");
-    var ticketID = document.createElement("p");
-    ticketID.innerHTML = "Ticket ID: " + refsToPrint.id;
-    const cloneTicket = deepCloneWithStyles(ticketID);
-    body.appendChild(cloneTicket);
-    var z = document.createElement("p");
-    z.innerHTML = "Category: " + refsToPrint.category;
-    const clone = deepCloneWithStyles(z);
-    body.appendChild(clone);
-    var y = document.createElement("p");
-    y.innerHTML = "Subcategory: " + refsToPrint.subcategory;
-    const cloneY = deepCloneWithStyles(y);
-    body.appendChild(cloneY);
-    var x = document.createElement("p");
-    x.innerHTML = "User Description: " + refsToPrint.descrpiton;
-    const cloneX = deepCloneWithStyles(x);
-    body.appendChild(cloneX);
-    var created = document.createElement("p");
-    created.innerHTML = "Creation Time: " + refsToPrint.createdAt;
-    const cloneCreated = deepCloneWithStyles(created);
-    body.appendChild(cloneCreated);
-    printWindow.document.write("</body></html>");
+
+    map(refsToPrint, (val, key) => {
+      let row = document.createElement("tr");
+      row.appendChild(document.createElement("td")).textContent = key;
+      row.appendChild(document.createElement("td")).textContent = val;
+      return body.appendChild(row);
+    });
+    printWindow.document.write("</table></body></html>");
     printWindow.document.close();
     printWindow.print();
   };
 
   return (
-    <button className="btn btn-info col-sm-4 offset-sm-8" disabled={disabled ? false : true} onClick={printFunction}>
+    <button
+      className="btn btn-info col-sm-4 offset-sm-8"
+      disabled={disabled ? false : true}
+      onClick={printFunction}
+    >
       {" "}
       Print Ticket
     </button>

@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { connect } from "react-redux";
@@ -10,7 +9,7 @@ class LogOutModal extends Component {
   };
 
   render() {
-    console.log('','iam in')
+    console.log("", "iam in");
     const title = (
       <div>
         <strong style={{ fontSize: "33px" }}>
