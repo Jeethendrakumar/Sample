@@ -3,39 +3,34 @@ import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { Link, Outlet } from "react-router-dom";
+import { map } from "lodash";
+import { profileList, menu } from "./appData";
 
-const menu = [
-  {
-    platform: {
-      link: "/",
-      label: "Home",
-    },
-  },
-  {
-    pricing: {
-      link: "/products",
-      label: "Products",
-    },
-  },
-  {
-    resourses: {
-      link: "/services",
-      label: "Services",
-    },
-  },
-  {
-    acceleration: {
-      link: "/about",
-      label: "About Us",
-    },
-  },
-];
-
+const getProfileData = (handleEvent) => {
+  return map(profileList, (items) => {
+    const { link, label, icon } = items;
+    return (
+      <div key={label}>
+        <div className="dropdown-divider" />
+        <Link
+          className="text-dark dropdown-item"
+          to={link}
+          onClick={handleEvent}
+          style={{ color: "black" }}
+        >
+          <FontAwesomeIcon icon={icon} />
+          {"   "}
+          {label}
+        </Link>
+      </div>
+    );
+  });
+};
 const getMenu = () => {
   return menu.map((items) =>
     Object.values(items).map((item) => {
       return (
-        <li key={item.label} className="navbar-expand-lg">
+        <li key={item.label} className="nav-item d-sm-inline-block">
           <NavLink
             to={item.link}
             className="nav-link thicker"
@@ -69,78 +64,74 @@ class MainNavBar extends Component {
     const { loggedIn, handleLogOut } = this.props;
     const { msgShow } = this.state;
     return (
-      <nav className="navbar navbar-expand bg-secondary navbar-light border-bottom">
-        <div className="brand-link">
-          <img
-            src="static/img/Alpha-designstyle-smoothie-m.png"
-            alt="custom logo"
-            height="50"
-            weight="00px"
-          />
-        </div>
-        <ul className="navbar-nav ml-auto">
-          {loggedIn ? getMenu() : "Admin Portal"}
-        </ul>
-        <ul className="navbar-nav ml-auto">
-          <div className="nav-item">
-            <Link className="btn btn-outline-info" to="/contact">
-              CONTACT US
+      <nav className="navbar navbar-expand bg-secondary border-bottom">
+        <div className="container-fluid">
+          <div className="brand-link">
+            <Link to='/'>
+            <img
+              src="static/img/Alpha-designstyle-smoothie-m.png"
+              alt="custom logo"
+              height="50"
+              weight="00px"
+            />
             </Link>
-            {"  "}
-            {loggedIn ? (
-              <>
-                {" "}
-                <div className={`dropdown`}>
-                  <button
-                    type="button"
-                    className={`btn text-white btn-info dropdown-toggle`}
-                    onClick={this.toggleMsgShow}
-                  >
-                    <FontAwesomeIcon icon={faSignOut} />
-                    {"  "}
-                    LOG OUT
-                  </button>
-                  <div
-                    className={`dropdown-menu dropdown-menu-lg dropdown-menu-right ${
-                      msgShow ? "show" : null
-                    }`}
-                  >
-                    <div className="dropdown-header">
-                      Do you really want to Log Out?
-                    </div>
-                    <div className="dropdown-divider" />
-                    <div class="container">
-                      <div class="row">
-                        <button
-                          className="btn btn-secondary col-sm-6"
-                          onClick={this.toggleMsgShow}
-                        >
-                          No
-                        </button>
-                        {"  "}
-                        <button
-                          className="btn btn-primary col-sm-6"
-                          onClick={handleLogOut}
-                        >
-                          Yes
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    className={`backdrop-custom ${msgShow ? null : "hide"}`}
-                    onClick={this.notShow}
-                  ></div>
-                </div>
-              </>
-            ) : (
-              <button type="button" className="btn text-white btn-pink">
-                TRY FOR FREE
-              </button>
-            )}
           </div>
-        </ul>
+          <ul className="nav navbar-nav">
+            {loggedIn ? getMenu() : "Admin Portal"}
+          </ul>
+          <ul className="nav navbar-nav">
+            <div className="nav-item">
+              {loggedIn ? (
+                <>
+                  {" "}
+                  <div className={`dropdown`}>
+                    <div
+                      className="nav-link pull-left"
+                      onClick={this.toggleMsgShow}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <img
+                        src="static/img/3600926.png"
+                        className="rounded-circle img-fluid"
+                        style={{ width: "50px" }}
+                      />
+                    </div>
+                    <div
+                      className={`dropdown-menu dropdown-menu-lg dropdown-menu-right ${
+                        msgShow ? "show" : null
+                      }`}
+                    >
+                      <span className="dropdown-item dropdown-header">
+                        Profile Settings
+                      </span>
+                      {getProfileData(this.notShow)}
+                      <div className="dropdown-divider" />
+                      <button
+                        className="dropdown-item"
+                        onClick={() => {
+                          handleLogOut();
+                          this.notShow();
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faSignOut} />
+                        {"   "}
+                        Logout
+                      </button>
+                    </div>
+                    <div
+                      className={`backdrop-custom ${msgShow ? null : "hide"}`}
+                      onClick={this.notShow}
+                    ></div>
+                  </div>
+                </>
+              ) : (
+                <button type="button" className="btn text-white btn-pink">
+                  TRY FOR FREE
+                </button>
+              )}
+            </div>
+          </ul>
+        </div>
       </nav>
     );
   }

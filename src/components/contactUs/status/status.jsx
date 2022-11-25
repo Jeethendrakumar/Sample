@@ -80,9 +80,9 @@ class Status extends React.Component {
       resultContent = <Loader />;
     } else if (fetched) {
       let bg =
-        posts.result.category == "IT"
+        posts.result.Category == "IT"
           ? "bg-danger"
-          : posts.result.category == "Internet"
+          : posts.result.Category == "Internet"
           ? "bg-warning"
           : "bg-secondary";
       resultContent = (
@@ -92,9 +92,9 @@ class Status extends React.Component {
               Priority : <strong>{priority}</strong>
             </CardItem>
             <CardItem item="body">
-              Category : {posts.result.category}
+              Category : {posts.result.Category}
               <br />
-              Subcategory : {posts.result.subcategory}
+              Subcategory : {posts.result.Subcategory}
               <br />
             </CardItem>
             <CardItem item="footer">
@@ -173,9 +173,9 @@ class Status extends React.Component {
                     className="btn btn-info col-sm-3 offset-sm-6"
                     onClick={() =>
                       this.props.postForm({
-                        category: this.state.selectedValue,
-                        subcategory: this.state.selectedSubmenuValue,
-                        descrpiton: this.state.desc,
+                        Category: this.state.selectedValue,
+                        Subcategory: this.state.selectedSubmenuValue,
+                        Descrpiton: this.state.desc,
                       })
                     }
                   >

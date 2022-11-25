@@ -10,16 +10,8 @@ class Contact extends Component {
       return Object.values(items).map((item) => {
         const { label, link } = item;
         return (
-          <li key={label} className="nav-item d-none d-sm-inline-block">
-            <NavLink
-              exact
-              to={link}
-              className={`nav-link ${
-                location.pathname.includes(link)
-                  ? "text-dark thicker"
-                  : "text-muted"
-              } x-5 mx-2"`}
-            >
+          <li key={label} className="nav-item d-sm-inline-block">
+            <NavLink className={"nav-link text-muted x-5 mx-2"} to={link}>
               {label}
             </NavLink>
           </li>
@@ -32,25 +24,24 @@ class Contact extends Component {
     let content;
 
     content = (
-      <div className="ui secondary pointing menu">
+      <nav className="navbar navbar-expand">
         <div className="container-fluid">
-          <div className="row mb-2">
-            <div className="navbar navbar-expand">{this.getMenu()}      
-            </div>
+          <div className="row">
+            <ul className="nav navbar-nav">{this.getMenu()}</ul>
           </div>
         </div>
-      </div>
+      </nav>
     );
 
     return (
       <CardItem item="body">
         <div className="container-fluid">
           <div className="row">
-            <div className="col-md-12">
+            <div className="col">
               <Card>{content}</Card>
-              <Outlet />
             </div>
           </div>
+          <Outlet />
         </div>
       </CardItem>
     );

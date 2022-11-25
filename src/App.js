@@ -13,6 +13,8 @@ import LogOutModal from "./components/login/logoutModal";
 import SpeedCheck from "./components/contactUs/speedCheck/speedCheck";
 import TroubleShoot from "./components/contactUs/troubleshoot/troubleshoot";
 import { toast } from "react-toastify";
+import UserProfile from "./common/profile";
+import Settings from "./components/setting";
 import "react-toastify/dist/ReactToastify.css";
 
 class App extends React.Component {
@@ -63,12 +65,14 @@ class App extends React.Component {
                   <Route path="speedtest" element={<SpeedCheck />} />
                   <Route path="troubleshoot" element={<TroubleShoot />} />
                 </Route>
+                <Route exact path="/profile" element={<UserProfile />} />
+                <Route exact path="/setting" element={<Settings />} />
               </Routes>
             </>
           ) : (
             <Login handleClick={(e) => this.handleClick(e)} />
           )}
-          <Footer />
+          {/* <Footer /> */}
         </BrowserRouter>
       </>
     );

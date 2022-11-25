@@ -3,7 +3,6 @@ import { CardItem, CardLit } from "../../common/card";
 import Input from "../../common/input";
 import Column from "../../common/column";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const Login = ({ handleClick }) => {
   return (
